@@ -21,6 +21,7 @@
 		849CED80193F0C50003E3C22 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849CED62193F0C4F003E3C22 /* UIKit.framework */; };
 		849CED88193F0C50003E3C22 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 849CED86193F0C50003E3C22 /* InfoPlist.strings */; };
 		849CED8A193F0C50003E3C22 /* MacysTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CED89193F0C50003E3C22 /* MacysTests.m */; };
+		849CED98193F0EC3003E3C22 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CED97193F0EC3003E3C22 /* Product.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,16 @@
 		849CED6D193F0C4F003E3C22 /* MCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAppDelegate.h; sourceTree = "<group>"; };
 		849CED6E193F0C4F003E3C22 /* MCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCAppDelegate.m; sourceTree = "<group>"; };
 		849CED71193F0C4F003E3C22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		849CED73193F0C4F003E3C22 /* MCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCViewController.h; sourceTree = "<group>"; };
-		849CED74193F0C4F003E3C22 /* MCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCViewController.m; sourceTree = "<group>"; };
+		849CED73193F0C4F003E3C22 /* MCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MCViewController.h; path = ../MCViewController.h; sourceTree = "<group>"; };
+		849CED74193F0C4F003E3C22 /* MCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MCViewController.m; path = ../MCViewController.m; sourceTree = "<group>"; };
 		849CED76193F0C4F003E3C22 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		849CED7C193F0C50003E3C22 /* MacysTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacysTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		849CED7D193F0C50003E3C22 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		849CED85193F0C50003E3C22 /* MacysTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MacysTests-Info.plist"; sourceTree = "<group>"; };
 		849CED87193F0C50003E3C22 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		849CED89193F0C50003E3C22 /* MacysTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacysTests.m; sourceTree = "<group>"; };
+		849CED96193F0EC3003E3C22 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		849CED97193F0EC3003E3C22 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,9 +118,9 @@
 				849CED6D193F0C4F003E3C22 /* MCAppDelegate.h */,
 				849CED6E193F0C4F003E3C22 /* MCAppDelegate.m */,
 				849CED70193F0C4F003E3C22 /* Main.storyboard */,
-				849CED73193F0C4F003E3C22 /* MCViewController.h */,
-				849CED74193F0C4F003E3C22 /* MCViewController.m */,
 				849CED76193F0C4F003E3C22 /* Images.xcassets */,
+				849CED94193F0CC2003E3C22 /* DataModels */,
+				849CED95193F0CD0003E3C22 /* ViewControllers */,
 				849CED65193F0C4F003E3C22 /* Supporting Files */,
 			);
 			path = Macys;
@@ -150,6 +153,24 @@
 				849CED86193F0C50003E3C22 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		849CED94193F0CC2003E3C22 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				849CED96193F0EC3003E3C22 /* Product.h */,
+				849CED97193F0EC3003E3C22 /* Product.m */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		849CED95193F0CD0003E3C22 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				849CED73193F0C4F003E3C22 /* MCViewController.h */,
+				849CED74193F0C4F003E3C22 /* MCViewController.m */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +274,7 @@
 				849CED6F193F0C4F003E3C22 /* MCAppDelegate.m in Sources */,
 				849CED75193F0C4F003E3C22 /* MCViewController.m in Sources */,
 				849CED6B193F0C4F003E3C22 /* main.m in Sources */,
+				849CED98193F0EC3003E3C22 /* Product.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +404,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Macys/Macys-Prefix.pch";
 				INFOPLIST_FILE = "Macys/Macys-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -395,6 +418,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Macys/Macys-Prefix.pch";
 				INFOPLIST_FILE = "Macys/Macys-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
