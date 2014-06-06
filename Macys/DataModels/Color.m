@@ -10,4 +10,13 @@
 
 @implementation Color
 
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dictionary {
+    
+    self = [super initWithJSONDictionary:dictionary];
+    if (self) {
+        self.code = dictionary[@"code"];
+    }
+    return self;
+}
+
 @end

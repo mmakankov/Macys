@@ -1,5 +1,5 @@
 //
-//  MCColorsViewController.h
+//  MCSelectionBaseViewController.m
 //  Macys
 //
 //  Created by mmakankov on 06/06/14.
@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCColorsViewController : UIViewController
+@class Entity;
+
+@protocol MCSelectionViewControllerDelegate <NSObject>
+
+- (void)objectDidSelected:(Entity *)object;
+- (void)objectDidDeselected:(Entity *)object;
+
+@end
+
+@interface MCSelectionBaseViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, weak) id<MCSelectionViewControllerDelegate> delegate;
+
+@property (nonatomic) NSArray *objects;
+
+@property (nonatomic) NSMutableArray *selectedObjects;
 
 @end

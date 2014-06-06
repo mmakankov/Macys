@@ -10,4 +10,9 @@
 
 @interface Entity : NSObject
 
+@property (nonatomic) NSNumber *id;
+@property (nonatomic) NSString *name;
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dictionary;
+
 @end

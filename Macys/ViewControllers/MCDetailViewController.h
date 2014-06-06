@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Product;
+
 @interface MCDetailViewController : UIViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProduct:(Product *)product;
 
 @end

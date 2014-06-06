@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 mmakankov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Entity.h"
 
-@interface Color : NSObject
+@interface Color : Entity
+
+@property (nonatomic) NSNumber *code;
 
 @end

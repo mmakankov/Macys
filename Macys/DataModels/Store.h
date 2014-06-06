@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 mmakankov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Entity.h"
 
-@interface Store : NSObject
+@interface Store : Entity
+
+@property (nonatomic) NSString *key;
 
 @end

@@ -6,8 +6,17 @@
 //  Copyright (c) 2014 mmakankov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Entity.h"
 
-@interface MCProduct : NSObject
+@interface Product : Entity
+
+@property (nonatomic) NSString *description;
+@property (nonatomic) NSNumber *regularPrice;
+@property (nonatomic) NSNumber *salePrice;
+@property (nonatomic) NSString *image;
+@property (nonatomic) NSMutableArray *colors;
+@property (nonatomic) NSMutableArray *stores;
+
+- (instancetype)initDefaultProduct;
 
 @end

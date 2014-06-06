@@ -10,4 +10,14 @@
 
 @implementation Entity
 
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dictionary {
+    
+    self = [super init];
+    if (self) {
+        self.id = dictionary[@"id"];
+        self.name = dictionary[@"name"];
+    }
+    return self;
+}
+
 @end

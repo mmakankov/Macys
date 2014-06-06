@@ -7,6 +7,10 @@
 //
 
 #import "MCColorsViewController.h"
+#import "MCDBStorage.h"
+#import "MCColorTableViewCell.h"
+#import "Color.h"
+#import "UIColor+Hex.h"
 
 @interface MCColorsViewController ()
 
@@ -18,7 +22,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+        self.title = @"Colors";
+        
     }
     return self;
 }
@@ -33,6 +39,34 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITableViewDelegate and UITableViewDataSource
+
+- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+    
+    MCColorTableViewCell *colorCell = (MCColorTableViewCell *)cell;
+    
+    Color *color = self.objects[indexPath.row];
+    colorCell.labelName.text = color.name;
+    colorCell.viewColor.backgroundColor = [UIColor colorFromRGB:color.code.unsignedIntegerValue];
+    colorCell.labelKey.text = nil;
+    
+    for (Color *selectedColor in self.selectedObjects) {
+        if (selectedColor.id.intValue == color.id.intValue) {
+            [colorCell setSelected:YES animated:NO];
+            colorCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            break;
+        }
+    }
+}
+
+#pragma mark - Getters and setters
+
+- (NSArray *)objects {
+    
+    return [[MCDBStorage sharedInstance] allColors];
+    
 }
 
 @end

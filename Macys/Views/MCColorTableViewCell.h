@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCColorCell : UITableViewCell
+@interface MCColorTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UIView *viewColor;
+@property (weak, nonatomic) IBOutlet UILabel *labelKey;
 
 @end

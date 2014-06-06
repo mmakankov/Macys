@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 mmakankov. All rights reserved.
 //
 
-#import "MCColorCell.h"
+#import "MCColorTableViewCell.h"
 
-@implementation MCColorCell
+@implementation MCColorTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        
     }
     return self;
 }
@@ -22,8 +22,12 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+}
 
-    // Configure the view for the selected state
+- (void)awakeFromNib {
+    
+    self.viewColor.layer.cornerRadius = 13.0f;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end

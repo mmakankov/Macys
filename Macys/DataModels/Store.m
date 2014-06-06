@@ -10,4 +10,13 @@
 
 @implementation Store
 
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dictionary {
+    
+    self = [super initWithJSONDictionary:dictionary];
+    if (self) {
+        self.key = dictionary[@"key"];
+    }
+    return self;
+}
+
 @end
