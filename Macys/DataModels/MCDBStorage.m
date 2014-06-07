@@ -112,7 +112,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
         product.image = [resultSet stringForColumn:@"image"];
         product.colors = [NSMutableArray arrayWithArray:[self colorsForProductId:product.id]];
         product.stores = [NSMutableArray arrayWithArray:[self storesForProductId:product.id]];
-        
+        //DLog(@"%@", product.image);
         [products addObject:product];
     }
     [resultSet close];
