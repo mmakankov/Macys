@@ -10,7 +10,10 @@
 #import "MCDBStorage.h"
 #import "Product.h"
 #import "MCDetailViewController.h"
+#import "MCMainTableViewCell.h"
 #import "Base64.h"
+
+static NSString *cellIdentifier = @"MainCell";
 
 @interface MCMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -86,13 +89,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    MCMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     Product *product = self.products[indexPath.row];
-    cell.textLabel.text = product.name;
-    cell.detailTextLabel.text = product.description;
-    cell.imageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:product.image]];
-    //cell.imageView.contentMode = UIViewContentMode;
+    cell.labelName.text = product.name;
+    if (product.image) {
+        cell.viewImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:product.image]];
+    }
+    cell.labelSalePrice.text = product.salePrice.stringValue;
+    
+    NSMutableAttributedString *stringStiked = [[NSMutableAttributedString alloc] initWithString:product.regularPrice.stringValue];
+    [stringStiked addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, [stringStiked length])];
+    
+    cell.labelRegularPrice.attributedText = stringStiked;
+    
     return cell;
 }
 

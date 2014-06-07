@@ -17,6 +17,8 @@
         self.name = @"New product";
         self.description = @"New description";
         self.colors = [NSMutableArray arrayWithCapacity:0];
+        self.regularPrice = @1500.50;
+        self.salePrice = @999.99;
     }
     
     return self;
@@ -30,9 +32,7 @@
         self.regularPrice = dictionary[@"regularPrice"];
         self.salePrice = dictionary[@"salePrice"];
         self.image = dictionary[@"image"];
-        
     }
-    
     return self;
 }
 

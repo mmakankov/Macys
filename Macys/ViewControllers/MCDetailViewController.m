@@ -15,6 +15,7 @@
 #import "MCColorsViewController.h"
 #import "MCStoresViewController.h"
 #import "UIColor+Hex.h"
+#import "MCImageViewController.h"
 
 @interface MCDetailViewController () <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MCSelectionViewControllerDelegate>
 
@@ -28,8 +29,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonStores;
 @property (weak, nonatomic) IBOutlet UIView *viewColors;
 @property (weak, nonatomic) IBOutlet UILabel *labelStores;
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelRegularPrice;
+@property (weak, nonatomic) IBOutlet UILabel *labelSalePrice;
 
 @property (nonatomic) Product *product;
+@property (nonatomic) BOOL modeEdit;
 
 @end
 
@@ -42,11 +47,14 @@
         self.product = product;
         
         self.title = @"Product";
+        self.modeEdit = NO;
         
-        UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(buttonSaveClicked:)];
+        UIBarButtonItem *buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(barButtonClicked:)];
         
-        self.navigationItem.rightBarButtonItem = saveButton;
+        self.navigationItem.rightBarButtonItem = buttonEdit;
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -55,9 +63,15 @@
 {
     [super viewDidLoad];
     
-    self.textFieldName.text = self.product.name;
+    self.textFieldName.text = self.labelName.text = self.product.name;
+    self.textFieldRegularPrice.text = self.labelRegularPrice.text = self.product.regularPrice.stringValue;
+    self.textFieldSalePrice.text = self.labelSalePrice.text = self.product.salePrice.stringValue;
     self.textViewDescription.text = self.product.description;
-    self.viewImage.image = [UIImage imageWithData:[self.product.image base64DecodedData]];
+    if (self.product.image) {
+        self.viewImage.image = [UIImage imageWithData:[self.product.image base64DecodedData]];
+    } else {
+        self.viewImage.image = [UIImage imageNamed:@"placeholder"];
+    }
     
     [self reloadStores];
     [self reloadColors];
@@ -79,9 +93,16 @@
 
 - (void)reloadColors {
     
+    for (UIView *view in self.viewColors.subviews) {
+        [view removeFromSuperview];
+    }
+    
     CGRect frame = CGRectMake(2.0f, 2.0f, 26.0f, 26.0f);
     for (Color *color in self.product.colors) {
         
+        if ([self.product.colors indexOfObject:color] > 5) {
+            break;
+        }
         UIView *viewColor = [[UIView alloc] initWithFrame:frame];
         viewColor.layer.cornerRadius = 13.0f;
         viewColor.backgroundColor = [UIColor colorFromRGB:color.code.unsignedIntegerValue];
@@ -101,13 +122,20 @@
 
 - (IBAction)buttonImageClicked:(id)sender {
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Gallery", @"Camera", nil];
-    
-    [actionSheet showInView:self.view];
+    [self resignAllFirstResponders];
+    if (self.modeEdit) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Gallery", @"Camera", nil];
+        
+        [actionSheet showInView:self.view];
+    }
+    else {
+        MCImageViewController *controller = [[MCImageViewController alloc] initWithNibName:@"ImageView" bundle:[NSBundle mainBundle] dataImage:[self.product.image base64DecodedData]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (IBAction)buttonColorsClicked:(id)sender {
@@ -130,23 +158,82 @@
     
 }
 
-- (void)buttonSaveClicked:(id)sender {
+- (void)barButtonClicked:(id)sender {
     
-    self.product.name = self.textFieldName.text;
-    self.product.description = self.textViewDescription.text;
-    self.product.regularPrice = @(self.textFieldRegularPrice.text.intValue);
-    self.product.salePrice = @(self.textFieldSalePrice.text.intValue);
+    self.modeEdit = !self.modeEdit;
+    if (self.modeEdit) {
+        //TODO: Сделать правильно
+        UIBarButtonItem *buttonSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(barButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = buttonSave;
+        
+        self.textFieldName.hidden = self.textFieldRegularPrice.hidden = self.textFieldSalePrice.hidden = NO;
+        self.labelName.hidden = self.labelRegularPrice.hidden = self.labelSalePrice.hidden = YES;
+        self.textViewDescription.editable = self.buttonColors.enabled = self.buttonStores.enabled = YES;
+    }
+    else {
+        
+        UIBarButtonItem *buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(barButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = buttonEdit;
+        
+        self.textFieldName.hidden = self.textFieldRegularPrice.hidden = self.textFieldSalePrice.hidden = YES;
+        self.labelName.hidden = self.labelRegularPrice.hidden = self.labelSalePrice.hidden = NO;
+        self.textViewDescription.editable = self.buttonColors.enabled = self.buttonStores.enabled = NO;
+        
+        [self resignAllFirstResponders];
+        
+        self.product.name = self.labelName.text = self.textFieldName.text;
+        self.product.description = self.textViewDescription.text;
+        self.labelRegularPrice.text = self.textFieldRegularPrice.text;
+        self.product.regularPrice = @(self.textFieldRegularPrice.text.intValue);
+        self.labelSalePrice.text = self.textFieldSalePrice.text;
+        self.product.salePrice = @(self.textFieldSalePrice.text.intValue);
+        
+        NSData *imageData = UIImagePNGRepresentation(self.viewImage.image);
+        self.product.image = [imageData base64EncodedString];
+        
+        BOOL isSaved = [[MCDBStorage sharedInstance] saveOrUpdateProduct:self.product];
+        if (!isSaved) {
+            DLog(@"Could not save product!");
+        }
+    }
+}
+
+#pragma mark - Notifications
+-(void)keyboardWillShowNotification:(NSNotification*)notification {
+    [self animateViewForNotification:notification];
+}
+
+-(void)keyboardWillHideNotification:(NSNotification*)notification {
+    [self animateViewForNotification:notification];
+}
+
+- (void)animateViewForNotification:(NSNotification*)notification {
     
-    NSData *imageData = UIImagePNGRepresentation(self.viewImage.image);
-    self.product.image = [imageData base64EncodedString];
+    NSValue *begin = notification.userInfo[UIKeyboardFrameBeginUserInfoKey];
+    NSValue *end = notification.userInfo[UIKeyboardFrameEndUserInfoKey];
+    NSNumber *duration = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    float delta = end.CGRectValue.origin.y - begin.CGRectValue.origin.y;
     
-    BOOL isSaved = [[MCDBStorage sharedInstance] saveOrUpdateProduct:self.product];
-    if (!isSaved) {
-        DLog(@"Could not save product!");
+    CGRect frame = self.textViewDescription.frame;
+    if (delta > 0) {
+        frame.size.height = CGRectGetMinY(self.buttonColors.frame) - 17.0f - CGRectGetMinY(self.textViewDescription.frame);
+    }
+    else {
+        frame.size.height = end.CGRectValue.origin.y - CGRectGetMinY(self.textViewDescription.frame) - 64.0f;
     }
     
+    //frame.size.height += delta;
+
+    [UIView animateWithDuration:duration.doubleValue
+                          delay:0
+                        options:curve.integerValue << 16
+                     animations:^{
+                         self.textViewDescription.frame = frame;
+                     } completion:nil];
     
 }
+
 
 #pragma mark - MCColorsViewControllerDelegate
 
@@ -215,6 +302,17 @@
     self.viewImage.image = image;
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Private methods
+
+- (void)resignAllFirstResponders {
+    
+    [self.textFieldName resignFirstResponder];
+    [self.textFieldRegularPrice resignFirstResponder];
+    [self.textFieldSalePrice resignFirstResponder];
+    [self.textViewDescription resignFirstResponder];
 }
 
 @end

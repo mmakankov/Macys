@@ -31,6 +31,11 @@
 		849CEDAE193F3526003E3C22 /* MCDBStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CEDAD193F3526003E3C22 /* MCDBStorage.m */; };
 		84B157DD194094E50071DEDB /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B157DC194094E50071DEDB /* UIColor+Hex.m */; };
 		84B157E11940952F0071DEDB /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B157E01940952F0071DEDB /* Base64.m */; };
+		84E51F4D19435DF3007BA84C /* MCMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E51F4C19435DF3007BA84C /* MCMainTableViewCell.m */; };
+		84E51F5219436242007BA84C /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E51F5019436242007BA84C /* placeholder.png */; };
+		84E51F5319436242007BA84C /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E51F5119436242007BA84C /* placeholder@2x.png */; };
+		84E51F5619436C70007BA84C /* MCImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E51F5519436C70007BA84C /* MCImageViewController.m */; };
+		84E51F5819436C84007BA84C /* ImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E51F5719436C84007BA84C /* ImageView.xib */; };
 		84E6492B1941A085004499AC /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6492A1941A085004499AC /* Color.m */; };
 		84E6492E1941A0D2004499AC /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6492D1941A0D2004499AC /* Store.m */; };
 		84E649311941A4BB004499AC /* MCSelectionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E649301941A4BB004499AC /* MCSelectionBaseViewController.m */; };
@@ -95,6 +100,13 @@
 		84B157DC194094E50071DEDB /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		84B157DF1940952F0071DEDB /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		84B157E01940952F0071DEDB /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		84E51F4B19435DF3007BA84C /* MCMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMainTableViewCell.h; sourceTree = "<group>"; };
+		84E51F4C19435DF3007BA84C /* MCMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMainTableViewCell.m; sourceTree = "<group>"; };
+		84E51F5019436242007BA84C /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		84E51F5119436242007BA84C /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
+		84E51F5419436C70007BA84C /* MCImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCImageViewController.h; sourceTree = "<group>"; };
+		84E51F5519436C70007BA84C /* MCImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCImageViewController.m; sourceTree = "<group>"; };
+		84E51F5719436C84007BA84C /* ImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageView.xib; sourceTree = "<group>"; };
 		84E649291941A085004499AC /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		84E6492A1941A085004499AC /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		84E6492C1941A0D2004499AC /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
@@ -186,6 +198,7 @@
 				849CED94193F0CC2003E3C22 /* DataModel */,
 				849CED95193F0CD0003E3C22 /* ViewControllers */,
 				849CED65193F0C4F003E3C22 /* Supporting Files */,
+				84E51F4F19436242007BA84C /* Resources */,
 			);
 			path = Macys;
 			sourceTree = "<group>";
@@ -252,6 +265,9 @@
 				84E649411941BBF4004499AC /* MCColorsViewController.m */,
 				84E649431941BC05004499AC /* MCStoresViewController.h */,
 				84E649441941BC05004499AC /* MCStoresViewController.m */,
+				84E51F5419436C70007BA84C /* MCImageViewController.h */,
+				84E51F5519436C70007BA84C /* MCImageViewController.m */,
+				84E51F5719436C84007BA84C /* ImageView.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -294,12 +310,23 @@
 			path = ../Base64;
 			sourceTree = "<group>";
 		};
+		84E51F4F19436242007BA84C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				84E51F5019436242007BA84C /* placeholder.png */,
+				84E51F5119436242007BA84C /* placeholder@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		84E649381941AC1F004499AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				84E649391941AC48004499AC /* MCColorTableViewCell.h */,
 				84E6493A1941AC48004499AC /* MCColorTableViewCell.m */,
 				84E649361941A912004499AC /* ColorTableViewCell.xib */,
+				84E51F4B19435DF3007BA84C /* MCMainTableViewCell.h */,
+				84E51F4C19435DF3007BA84C /* MCMainTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,8 +422,11 @@
 				849CED77193F0C4F003E3C22 /* Images.xcassets in Resources */,
 				849CED69193F0C4F003E3C22 /* InfoPlist.strings in Resources */,
 				849CED72193F0C4F003E3C22 /* Main.storyboard in Resources */,
+				84E51F5219436242007BA84C /* placeholder.png in Resources */,
+				84E51F5819436C84007BA84C /* ImageView.xib in Resources */,
 				84F8F27D193F716B0037E40C /* mockData.json in Resources */,
 				84F8F282193F7BBE0037E40C /* DetailView.xib in Resources */,
+				84E51F5319436242007BA84C /* placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +448,7 @@
 				84E6493B1941AC48004499AC /* MCColorTableViewCell.m in Sources */,
 				84B157E11940952F0071DEDB /* Base64.m in Sources */,
 				84E6492B1941A085004499AC /* Color.m in Sources */,
+				84E51F4D19435DF3007BA84C /* MCMainTableViewCell.m in Sources */,
 				84E649421941BBF4004499AC /* MCColorsViewController.m in Sources */,
 				849CED6F193F0C4F003E3C22 /* MCAppDelegate.m in Sources */,
 				84E6492E1941A0D2004499AC /* Store.m in Sources */,
@@ -432,6 +463,7 @@
 				849CEDA5193F28A8003E3C22 /* FMDatabase.m in Sources */,
 				849CEDA7193F28A8003E3C22 /* FMDatabasePool.m in Sources */,
 				849CEDA9193F28A8003E3C22 /* FMResultSet.m in Sources */,
+				84E51F5619436C70007BA84C /* MCImageViewController.m in Sources */,
 				849CED98193F0EC3003E3C22 /* Product.m in Sources */,
 				849CEDA6193F28A8003E3C22 /* FMDatabaseAdditions.m in Sources */,
 				849CEDAE193F3526003E3C22 /* MCDBStorage.m in Sources */,

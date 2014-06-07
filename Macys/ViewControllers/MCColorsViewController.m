@@ -54,7 +54,6 @@
     
     for (Color *selectedColor in self.selectedObjects) {
         if (selectedColor.id.intValue == color.id.intValue) {
-            [colorCell setSelected:YES animated:NO];
             colorCell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
         }

@@ -17,9 +17,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
 
 @interface MCDBStorage ()
 
-//@property (nonatomic, readonly) NSMutableArray *mutableArrayOfProducts;
 @property (nonatomic, readonly) NSString *documentsDirectory;
-//@property (nonatomic, readonly) NSString *databasePath;
 @property (nonatomic) FMDatabase *database;
 
 @end
@@ -85,9 +83,9 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st1", @"Store 1"];
     [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st2", @"Store 2"];
     [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st3", @"Store 3"];
-    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st4", @"Small Store"];
-    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st5", @"Large Store"];
-    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st6", @"Huge Store"];
+    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st4", @"Store 4"];
+    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st5", @"Store 5"];
+    [self.database executeUpdate:@"insert into stores (key, name) values (?, ?)", @"st6", @"Store 6"];
     
     [self readMockDataFromJSON];
     //[self.database commit];

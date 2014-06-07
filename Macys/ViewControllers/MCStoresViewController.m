@@ -53,7 +53,6 @@
     
     for (Store *selectedStore in self.selectedObjects) {
         if (selectedStore.id.intValue == store.id.intValue) {
-            [storeCell setSelected:YES animated:NO];
             storeCell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
         }

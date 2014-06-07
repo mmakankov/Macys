@@ -31,9 +31,6 @@ static NSString *cellIdentifier = @"ColorCell";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.tableView.allowsMultipleSelection = YES;
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"ColorTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
 }
 
@@ -65,20 +62,23 @@ static NSString *cellIdentifier = @"ColorCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    [self.selectedObjects addObject:self.objects[indexPath.row]];
-    [self.delegate objectDidSelected:self.objects[indexPath.row]];
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    
-    [self.selectedObjects removeObject:self.objects[indexPath.row]];
-    [self.delegate objectDidDeselected:self.objects[indexPath.row]];
-    
+    if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        for (Entity *selectedObject in self.selectedObjects) {
+            if (selectedObject.id.intValue == ((Entity *)self.objects[indexPath.row]).id.intValue) {
+                [self.selectedObjects removeObject:selectedObject];
+                break;
+            }
+        }
+        [self.delegate objectDidDeselected:self.objects[indexPath.row]];
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [self.selectedObjects addObject:self.objects[indexPath.row]];
+        [self.delegate objectDidSelected:self.objects[indexPath.row]];
+    }
 }
 
 - (NSString *)reuseIdentifier {
