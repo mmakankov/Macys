@@ -23,6 +23,10 @@ static NSString *cellIdentifier = @"MainCell";
 
 @implementation MCMainViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataBaseDidChangeNotification object:nil];
+}
+
 - (void)awakeFromNib {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataBaseDidChangeNotification:) name:dataBaseDidChangeNotification object:nil];
     
@@ -47,11 +51,6 @@ static NSString *cellIdentifier = @"MainCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataBaseDidChangeNotification object:nil];
-}
-
 #pragma mark - Private methods
 
 #pragma mark - Handle Notifications
@@ -66,7 +65,7 @@ static NSString *cellIdentifier = @"MainCell";
 
 - (void)buttonAddClicked:(id)sender {
     
-    Product *product = [[MCDBStorage sharedInstance] createNewProduct];
+    Product *product = [[Product alloc] initDefaultProduct];
     
     BOOL isSaved = [[MCDBStorage sharedInstance] saveOrUpdateProduct:product];
     if (isSaved) {

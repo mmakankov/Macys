@@ -22,7 +22,6 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
 
 @end
 
-
 @implementation MCDBStorage
 
 + (instancetype)sharedInstance {
@@ -101,7 +100,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     
     while ([resultSet next]) {
         
-        Product *product = [Product new];
+        Product *product = [[Product alloc] init];
         product.id = @([resultSet intForColumn:@"id"]);
         product.name = [resultSet stringForColumn:@"name"];
         product.description = [resultSet stringForColumn:@"description"];
@@ -140,17 +139,6 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     return isCorrect;
 }
 
-- (Product *)createNewProduct {
-    
-    Product *product = [[Product alloc] initDefaultProduct];
-    
-    //if ([self insertProduct:product]) {
-        return product;
-    //}
-    
-    //return nil;
-}
-
 - (BOOL)removeProduct:(Product *)product {
     
     return [self.database executeUpdate:@"delete from products where id = ?", product.id];
@@ -178,7 +166,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     
     while ([resultSet next]) {
         
-        Color *color = [Color new];
+        Color *color = [[Color alloc] init];
         color.id = [resultSet objectForColumnName:@"id"];
         color.name = [resultSet stringForColumn:@"name"];
         color.code = [resultSet objectForColumnName:@"code"];
@@ -198,7 +186,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     
     while ([resultSet next]) {
         
-        Color *color = [Color new];
+        Color *color = [[Color alloc] init];
         color.id = [resultSet objectForColumnName:@"id"];
         color.name = [resultSet stringForColumn:@"name"];
         color.code = [resultSet objectForColumnName:@"code"];
@@ -238,7 +226,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     
     while ([resultSet next]) {
         
-        Store *store = [Store new];
+        Store *store = [[Store alloc] init];
         store.id = [resultSet objectForColumnName:@"id"];
         store.key = [resultSet stringForColumn:@"key"];
         store.name = [resultSet stringForColumn:@"name"];
@@ -257,7 +245,7 @@ NSString * const dataBaseDidChangeNotification = @"dataBaseDidChangeNotification
     
     while ([resultSet next]) {
         
-        Store *store = [Store new];
+        Store *store = [[Store alloc] init];
         store.id = [resultSet objectForColumnName:@"id"];
         store.key = [resultSet stringForColumn:@"key"];
         store.name = [resultSet stringForColumn:@"name"];

@@ -20,4 +20,13 @@
     return self;
 }
 
+- (instancetype)init {
+    
+    self = [self initWithJSONDictionary:nil];
+    if (self) {
+        
+    }
+    return self;
+}
+
 @end

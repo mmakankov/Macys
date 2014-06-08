@@ -30,7 +30,11 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil dataImage:nil];
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil dataImage:nil];
+    if (self) {
+        
+    }
+    return self;
 }
 
 - (void)viewDidLoad

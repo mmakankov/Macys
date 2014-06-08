@@ -10,6 +10,9 @@
 
 @interface Store : Entity
 
+/**
+ Key of the Store
+ */
 @property (nonatomic) NSString *key;
 
 @end

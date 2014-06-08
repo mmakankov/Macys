@@ -10,6 +10,9 @@
 
 @interface Color : Entity
 
+/**
+ Hex code of the color
+ */
 @property (nonatomic) NSNumber *code;
 
 @end

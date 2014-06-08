@@ -10,6 +10,13 @@
 
 @interface MCImageViewController : UIViewController
 
+/**
+ Initialize MCImageViewController. Designated initializer.
+ @param nibNameOrNil Name of the nib file
+ @param nibBundleOrNil Bundle, where should search nib file
+ @param dataImage image as NSData
+ @returns An initialized MCImageViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil dataImage:(NSData *)dataImage;
 
 @end

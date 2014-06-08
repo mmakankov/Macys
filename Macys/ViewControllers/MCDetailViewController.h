@@ -12,6 +12,13 @@
 
 @interface MCDetailViewController : UIViewController
 
+/**
+ Initialize MCDetailViewController. Designated initializer.
+ @param nibNameOrNil Name of the nib file
+ @param nibBundleOrNil Bundle, where should search nib file
+ @param product Product to load
+ @returns An initialized MCDetailViewController
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProduct:(Product *)product;
 
 @end

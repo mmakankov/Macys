@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSalePrice;
 
 @property (nonatomic) Product *product;
-@property (nonatomic) BOOL modeEdit;
 
 @end
 
@@ -42,19 +41,25 @@
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProduct:(Product *)product
 {
-    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.product = product;
         
         self.title = @"Product";
-        self.modeEdit = NO;
         
-        UIBarButtonItem *buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(barButtonClicked:)];
-        
-        self.navigationItem.rightBarButtonItem = buttonEdit;
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil andProduct:nil];
+    if (self) {
+        
     }
     return self;
 }
@@ -123,7 +128,7 @@
 - (IBAction)buttonImageClicked:(id)sender {
     
     [self resignAllFirstResponders];
-    if (self.modeEdit) {
+    if (self.editing) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
                                                         cancelButtonTitle:@"Cancel"
@@ -158,43 +163,22 @@
     
 }
 
-- (void)barButtonClicked:(id)sender {
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     
-    self.modeEdit = !self.modeEdit;
-    if (self.modeEdit) {
-        //TODO: Сделать правильно
-        UIBarButtonItem *buttonSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(barButtonClicked:)];
-        self.navigationItem.rightBarButtonItem = buttonSave;
-        
+    [super setEditing:editing animated:animated];
+    
+    if (editing) {
         self.textFieldName.hidden = self.textFieldRegularPrice.hidden = self.textFieldSalePrice.hidden = NO;
         self.labelName.hidden = self.labelRegularPrice.hidden = self.labelSalePrice.hidden = YES;
         self.textViewDescription.editable = self.buttonColors.enabled = self.buttonStores.enabled = YES;
     }
     else {
-        
-        UIBarButtonItem *buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(barButtonClicked:)];
-        self.navigationItem.rightBarButtonItem = buttonEdit;
-        
         self.textFieldName.hidden = self.textFieldRegularPrice.hidden = self.textFieldSalePrice.hidden = YES;
         self.labelName.hidden = self.labelRegularPrice.hidden = self.labelSalePrice.hidden = NO;
         self.textViewDescription.editable = self.buttonColors.enabled = self.buttonStores.enabled = NO;
         
         [self resignAllFirstResponders];
-        
-        self.product.name = self.labelName.text = self.textFieldName.text;
-        self.product.description = self.textViewDescription.text;
-        self.labelRegularPrice.text = self.textFieldRegularPrice.text;
-        self.product.regularPrice = @(self.textFieldRegularPrice.text.intValue);
-        self.labelSalePrice.text = self.textFieldSalePrice.text;
-        self.product.salePrice = @(self.textFieldSalePrice.text.intValue);
-        
-        NSData *imageData = UIImagePNGRepresentation(self.viewImage.image);
-        self.product.image = [imageData base64EncodedString];
-        
-        BOOL isSaved = [[MCDBStorage sharedInstance] saveOrUpdateProduct:self.product];
-        if (!isSaved) {
-            DLog(@"Could not save product!");
-        }
+        [self updateProduct];
     }
 }
 
@@ -222,9 +206,6 @@
     else {
         frame.size.height = end.CGRectValue.origin.y - CGRectGetMinY(self.textViewDescription.frame) - 64.0f;
     }
-    
-    //frame.size.height += delta;
-
     [UIView animateWithDuration:duration.doubleValue
                           delay:0
                         options:curve.integerValue << 16
@@ -306,6 +287,24 @@
 
 
 #pragma mark - Private methods
+
+- (void)updateProduct {
+    
+    self.product.name = self.labelName.text = self.textFieldName.text;
+    self.product.description = self.textViewDescription.text;
+    self.labelRegularPrice.text = self.textFieldRegularPrice.text;
+    self.product.regularPrice = @(self.textFieldRegularPrice.text.intValue);
+    self.labelSalePrice.text = self.textFieldSalePrice.text;
+    self.product.salePrice = @(self.textFieldSalePrice.text.intValue);
+    
+    NSData *imageData = UIImagePNGRepresentation(self.viewImage.image);
+    self.product.image = [imageData base64EncodedString];
+    
+    BOOL isSaved = [[MCDBStorage sharedInstance] saveOrUpdateProduct:self.product];
+    if (!isSaved) {
+        DLog(@"Could not save product!");
+    }
+}
 
 - (void)resignAllFirstResponders {
     

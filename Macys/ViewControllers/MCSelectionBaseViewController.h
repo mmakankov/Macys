@@ -19,12 +19,24 @@
 
 @interface MCSelectionBaseViewController : UIViewController
 
+/**
+ MCSelectionBaseViewController's tableView
+ */
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+/**
+ MCSelectionBaseViewController's delegate
+ */
 @property (nonatomic, weak) id<MCSelectionViewControllerDelegate> delegate;
 
+/**
+ All available object from DB
+ */
 @property (nonatomic) NSArray *objects;
 
+/**
+ Object, that are selected
+ */
 @property (nonatomic) NSMutableArray *selectedObjects;
 
 @end
